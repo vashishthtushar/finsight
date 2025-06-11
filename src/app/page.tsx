@@ -32,8 +32,15 @@ export default function TransactionsPage() {
   );
   const [budgets, setBudgets] = useState<any[]>([]);
 
-  const [form, setForm] = useState({
-    amount: "",
+  type FormState = {
+    amount: number;
+    description: string;
+    date: string;
+    categoryId: string;
+  };
+
+  const [form, setForm] = useState<FormState>({
+    amount: 0,
     description: "",
     date: "",
     categoryId: "",
