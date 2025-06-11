@@ -311,7 +311,7 @@ export default function TransactionsPage() {
       <ul className="mt-2 space-y-2">
         {budgets.map((budget) => {
           const totalSpent = transactions
-            .filter((tx) => tx.categoryId === budget.categoryId)
+            .filter((tx) => tx.category?.id === budget.categoryId)
             .reduce((sum, tx) => sum + tx.amount, 0);
 
           const isOver = totalSpent > budget.amount;
