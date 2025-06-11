@@ -1,27 +1,26 @@
-// ✅ Required to avoid using Edge Runtime (not Prisma-compatible)
-export const dynamic = 'force-dynamic'
+// Avoid Edge Function – required for Prisma to work on Vercel
+export const dynamic = 'force-dynamic';
 
-import { PrismaClient } from '@prisma/client'
-import { NextRequest, NextResponse } from 'next/server'
+import { PrismaClient } from '@prisma/client';
+import { NextRequest, NextResponse } from 'next/server';
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 export async function DELETE(req: NextRequest) {
   try {
-    const url = new URL(req.url)
-    const id = url.pathname.split('/').pop()
+    const id = req.url.split('/').pop();
 
     if (!id) {
-      return NextResponse.json({ error: 'Missing ID' }, { status: 400 })
+      return NextResponse.json({ error: 'Missing ID' }, { status: 400 });
     }
 
     await prisma.transaction.delete({
-      where: { id }
-    })
+      where: { id },
+    });
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('API DELETE Error:', error)
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
+    console.error('DELETE route error:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
