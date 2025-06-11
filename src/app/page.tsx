@@ -25,12 +25,22 @@ type Transaction = {
   };
 };
 
+type Budget = {
+  id: string;
+  amount: number;
+  categoryId: string;
+  category: {
+    id: string;
+    name: string;
+  };
+};
+
 export default function TransactionsPage() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [categories, setCategories] = useState<{ id: string; name: string }[]>(
     []
   );
-  const [budgets, setBudgets] = useState<any[]>([]);
+  const [budgets, setBudgets] = useState<Budget[]>([]);
 
   type FormState = {
     amount: number;
@@ -64,7 +74,7 @@ export default function TransactionsPage() {
   const fetchBudgets = async () => {
     const res = await fetch("/api/budgets");
     const data = await res.json();
-    setBudgets(data);
+    setBudgets(data as Budget[]);
   };
 
   const handleChange = (
