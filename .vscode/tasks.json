@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start FinSight",
+      "type": "shell",
+      "command": "docker compose up -d && npx prisma generate && npx prisma migrate dev --name auto-sync && npm run dev",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    }
+  ]
+}
